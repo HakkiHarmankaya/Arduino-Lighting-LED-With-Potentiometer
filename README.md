@@ -3,6 +3,7 @@
 Bu projede, **potansiyometre** kullanarak bir **LED'in parlaklığını analog olarak kontrol etmeyi** öğreneceğiz.  
 Potansiyometre döndürüldükçe LED'in parlaklığı artacak veya azalacaktır.
 
+🔗 [Web Siteme Bakmak İçin Tıkla](https://www.hakkiharmankaya.com/)
  
 🔗 [Tinkercad Tasarımına Göz At](https://www.tinkercad.com/things/7iJgCOMMT0L?sharecode=T2q1EgOAqxZi5lHyJ6BG4cRU_FI047ZcG8qRlP_16Ss)
 
