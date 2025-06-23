@@ -1,68 +1,47 @@
-# 🎚️ Arduino #3: Potansiyometre ile Analog Değer Okuma
+# 🎛️ Arduino #4: Potansiyometre ile LED Işık Seviyesi Ayarlama
 
-Bu projede, bir **potansiyometre** kullanarak Arduino üzerinden **analog veri okuma** işlemini gerçekleştireceğiz.  
-Serial Monitor üzerinden anlık değerleri takip edebileceğiniz şekilde tasarlanmıştır.
+Bu projede, **potansiyometre** kullanarak bir **LED'in parlaklığını analog olarak kontrol etmeyi** öğreneceğiz.  
+Potansiyometre döndürüldükçe LED'in parlaklığı artacak veya azalacaktır.
 
-  
-🔗 [Tinkercad Tasarımını Görüntüle](https://www.tinkercad.com/things/6ruU5uRQtPS?sharecode=g58elSyOKZaZqbvXGTfWq2GqZJj3V26jLntGLdMiri0)
+ 
+🔗 [Tinkercad Tasarımına Göz At](https://www.tinkercad.com/things/7iJgCOMMT0L?sharecode=T2q1EgOAqxZi5lHyJ6BG4cRU_FI047ZcG8qRlP_16Ss)
 
 ---
 
 ## 🧰 Gerekli Malzemeler
 
+- 1 adet **LED**
 - 1 adet **potansiyometre**
-- 3 adet **jumper kablo**
-- 1 adet **breadboard**
+- 1 adet **direnç** (220Ω veya 330Ω)
 - 1 adet **Arduino**
+- 1 adet **breadboard**
+- 6 adet **jumper kablosu**
 
 ---
 
 ## ⚙️ Adım Adım Devre Kurulumu
 
-### 🔹 Adım 1: Devre Tasarımına Başlayın
+### 🔹 Adım 1: Devreyi Tasarlayın
 
-- Tinkercad.com veya benzeri bir simülasyon aracında yeni bir devre oluşturun.
-- Aşağıdaki bileşenleri ekleyin:  
-  **Arduino**, **Breadboard**, **Potentiometer**
-
----
-
-### 🔹 Adım 2: Potansiyometreyi Bağlayın
-
-Potansiyometrenin 3 bacağı vardır:
-
-- **Sol bacak** → GND  
-- **Sağ bacak** → 5V  
-- **Orta bacak** → A0 (analog pin)
+- LED'in **anot (uzun bacak)** ucu → Arduino **D3** pinine
+- LED'in **katot (kısa bacak)** ucu → direnç → **GND**
+- Potansiyometrenin:
+  - **Orta bacağı** → Arduino **A0** analog pinine
+  - **Sol bacağı** → **5V**
+  - **Sağ bacağı** → **GND**
 
 ---
 
-### 🔹 Adım 3: Devreyi Kontrol Edin
-
-- Arduino'yu bağlayın ve **Serial Monitor'ü** açın.
-- Potansiyometreyi döndürdükçe, değerlerin değişimini görebilirsiniz.
-
----
-
-### 🔹 Adım 4: Arduino Kodunu Yazın ve Yükleyin
-
-Aşağıdaki kodu Arduino IDE'ye yapıştırın ve karta yükleyin:
+### 🔹 Adım 2: Arduino Kodunu Yazın ve Yükleyin
 
 ```cpp
-int deger = 0;
-float gerilim = 0;
-
 void setup() {
-  Serial.begin(9600); // Seri haberleşmeyi başlat
+  pinMode(3, OUTPUT);   // LED pini çıkış olarak ayarlandı
+  pinMode(A0, INPUT);   // Potansiyometre girişi
 }
 
 void loop() {
-  deger = analogRead(A0); // Analog değeri oku
-  gerilim = (5.00 / 1024.00) * deger; // Voltaj hesapla
-
-  Serial.print("Alinan deger = ");
-  Serial.print(deger);
-  Serial.print("  Voltaj degeri = ");
-  Serial.println(gerilim);
-  delay(500); // 500 ms bekle
+  int deger = analogRead(A0);           // A0 pininden değeri oku (0-1023)
+  deger = map(deger, 0, 1023, 0, 255);  // 0-1023 → 0-255'e dönüştür
+  analogWrite(3, deger);                // LED parlaklığını ayarla
 }
